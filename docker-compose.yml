@@ -1,0 +1,23 @@
+services :
+  redis:
+    image: redis:latest
+    container_name: redis-store
+    ports: 
+      - "6379:6379"
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes: 
+      - redis-data:/data
+
+  mongodb:
+    image: mongo:7
+    container_name: mongo-database
+    ports: 
+      - "27017:27017"
+    environment: 
+      MONGO_INITDB_DATABASE: redis_store_course
+    volumes:
+      - mongo-data:/data/db
+
+volumes:
+  redis-data: 
+  mongo-data:
